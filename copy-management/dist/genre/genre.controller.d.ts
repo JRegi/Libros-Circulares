@@ -6,7 +6,7 @@ export declare class GenreController {
     constructor(genreService: GenreService);
     create(createGenreDto: CreateGenreDto): number;
     findAll(): import("./entities/genre.entity").Genre[];
-    findOne(id: string): string;
-    update(id: string, updateGenreDto: UpdateGenreDto): string;
+    findOne(id: string): import("./entities/genre.entity").Genre;
+    update(id: string, updateGenreDto: UpdateGenreDto): void;
     remove(id: string): boolean;
 }

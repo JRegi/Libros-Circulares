@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Author = void 0;
 class Author {
-    Id;
+    id;
     name;
     lastName;
     nationality;

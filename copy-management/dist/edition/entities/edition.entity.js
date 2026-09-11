@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Edition = void 0;
 class Edition {
-    Id;
+    id;
     year;
     book;
     publisher;

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateGenreDto } from './dto/create-genre.dto';
 import { UpdateGenreDto } from './dto/update-genre.dto';
 import { Genre } from './entities/genre.entity';
@@ -10,10 +10,10 @@ export class GenreService {
   create(createGenreDto: CreateGenreDto) {
     const newGenre = new Genre();
     newGenre.name = createGenreDto.name;
-    newGenre.Id = Math.random();
+    newGenre.id = Math.random();
     this.genres.push(newGenre);
 
-    return newGenre.Id;
+    return newGenre.id;
   }
 
   findAll() {
@@ -21,15 +21,27 @@ export class GenreService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} genre`;
+    const genre = this.genres.find((g) => g.id == id);
+
+    if (!genre) {
+      throw new NotFoundException();
+    }
+
+    return genre;
   }
 
   update(id: number, updateGenreDto: UpdateGenreDto) {
-    return `This action updates a #${id} genre`;
+    const genre = this.genres.find((g) => g.id == id);
+
+    if (!genre) {
+      throw new NotFoundException();
+    }
+
+    genre.name = updateGenreDto.name;
   }
 
   remove(id: number) {
-    this.genres = this.genres.filter((g) => g.Id != id);
+    this.genres = this.genres.filter((g) => g.id != id);
     return true;
   }
 }

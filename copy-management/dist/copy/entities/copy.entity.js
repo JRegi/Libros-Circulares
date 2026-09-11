@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Copy = void 0;
 class Copy {
-    Id;
+    id;
     edition;
     ownerId;
 }

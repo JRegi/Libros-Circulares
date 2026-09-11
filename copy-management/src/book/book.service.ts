@@ -8,9 +8,7 @@ export class BookService {
     return 'This action adds a new book';
   }
 
-  findAll() {
-    return `This action returns all book`;
-  }
+  findAll() {}
 
   findOne(id: number) {
     return `This action returns a #${id} book`;

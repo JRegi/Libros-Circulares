@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Publisher = void 0;
 class Publisher {
-    Id;
+    id;
     name;
 }
 exports.Publisher = Publisher;

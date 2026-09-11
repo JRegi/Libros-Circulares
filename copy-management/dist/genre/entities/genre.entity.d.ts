@@ -1,4 +1,4 @@
 export declare class Genre {
-    Id: number;
+    id: number;
     name: string;
 }

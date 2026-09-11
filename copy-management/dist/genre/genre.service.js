@@ -14,21 +14,29 @@ let GenreService = class GenreService {
     create(createGenreDto) {
         const newGenre = new genre_entity_1.Genre();
         newGenre.name = createGenreDto.name;
-        newGenre.Id = Math.random();
+        newGenre.id = Math.random();
         this.genres.push(newGenre);
-        return newGenre.Id;
+        return newGenre.id;
     }
     findAll() {
         return this.genres;
     }
     findOne(id) {
-        return `This action returns a #${id} genre`;
+        const genre = this.genres.find((g) => g.id == id);
+        if (!genre) {
+            throw new common_1.NotFoundException();
+        }
+        return genre;
     }
     update(id, updateGenreDto) {
-        return `This action updates a #${id} genre`;
+        const genre = this.genres.find((g) => g.id == id);
+        if (!genre) {
+            throw new common_1.NotFoundException();
+        }
+        genre.name = updateGenreDto.name;
     }
     remove(id) {
-        this.genres = this.genres.filter((g) => g.Id != id);
+        this.genres = this.genres.filter((g) => g.id != id);
         return true;
     }
 };

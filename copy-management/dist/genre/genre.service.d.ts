@@ -5,7 +5,7 @@ export declare class GenreService {
     genres: Genre[];
     create(createGenreDto: CreateGenreDto): number;
     findAll(): Genre[];
-    findOne(id: number): string;
-    update(id: number, updateGenreDto: UpdateGenreDto): string;
+    findOne(id: number): Genre;
+    update(id: number, updateGenreDto: UpdateGenreDto): void;
     remove(id: number): boolean;
 }
