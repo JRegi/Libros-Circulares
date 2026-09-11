@@ -21,6 +21,7 @@ export class GenreController {
   }
 
   @Get()
+  findAll() {
     return this.genreService.findAll();
   }
 
