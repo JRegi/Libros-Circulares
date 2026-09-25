@@ -14,7 +14,7 @@ let GenreService = class GenreService {
     create(createGenreDto) {
         const newGenre = new genre_entity_1.Genre();
         newGenre.name = createGenreDto.name;
-        newGenre.id = Math.random();
+        newGenre.id = Math.floor(1000 + Math.random() * 9000);
         this.genres.push(newGenre);
         return newGenre.id;
     }

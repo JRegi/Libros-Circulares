@@ -17,6 +17,7 @@ exports.AuthorModule = AuthorModule = __decorate([
     (0, common_1.Module)({
         controllers: [author_controller_1.AuthorController],
         providers: [author_service_1.AuthorService],
+        exports: [author_service_1.AuthorService],
     })
 ], AuthorModule);
 //# sourceMappingURL=author.module.js.map

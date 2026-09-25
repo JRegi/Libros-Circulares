@@ -5,6 +5,7 @@ class Book {
     id;
     name;
     genre;
+    authors;
 }
 exports.Book = Book;
 //# sourceMappingURL=book.entity.js.map

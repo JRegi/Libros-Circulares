@@ -10,13 +10,18 @@ exports.BookModule = void 0;
 const common_1 = require("@nestjs/common");
 const book_service_1 = require("./book.service");
 const book_controller_1 = require("./book.controller");
+const author_module_1 = require("../author/author.module");
+const genre_module_1 = require("../genre/genre.module");
+const author_service_1 = require("../author/author.service");
+const genre_service_1 = require("../genre/genre.service");
 let BookModule = class BookModule {
 };
 exports.BookModule = BookModule;
 exports.BookModule = BookModule = __decorate([
     (0, common_1.Module)({
+        imports: [author_module_1.AuthorModule, genre_module_1.GenreModule],
         controllers: [book_controller_1.BookController],
-        providers: [book_service_1.BookService],
+        providers: [book_service_1.BookService, author_service_1.AuthorService, genre_service_1.GenreService],
     })
 ], BookModule);
 //# sourceMappingURL=book.module.js.map

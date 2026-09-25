@@ -4,7 +4,7 @@ import { UpdateEditionDto } from './dto/update-edition.dto';
 export declare class EditionController {
     private readonly editionService;
     constructor(editionService: EditionService);
-    create(createEditionDto: CreateEditionDto): string;
+    create(createEditionDto: CreateEditionDto): void;
     findAll(): string;
     findOne(id: string): string;
     update(id: string, updateEditionDto: UpdateEditionDto): string;

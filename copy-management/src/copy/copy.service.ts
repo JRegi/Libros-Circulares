@@ -1,26 +1,74 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateCopyDto } from './dto/create-copy.dto';
-import { UpdateCopyDto } from './dto/update-copy.dto';
+import { Copy } from './entities/copy.entity';
+import { EditionService } from '../edition/edition.service';
+import { UserClient } from './clients/user.client';
+import {
+  generateId,
+  rejectUnknownFields,
+  requireBody,
+  validateId,
+} from '../common/validation';
+
+const COPY_FIELDS = ['editionId', 'ownerUserId'];
 
 @Injectable()
 export class CopyService {
-  create(createCopyDto: CreateCopyDto) {
-    return 'This action adds a new copy';
+  constructor(
+    private readonly editionService: EditionService,
+    private readonly userClient: UserClient,
+  ) {}
+
+  copies: Copy[] = [];
+
+  async create(createCopyDto: CreateCopyDto) {
+    const body = requireBody(createCopyDto);
+    rejectUnknownFields(body, COPY_FIELDS);
+
+    const editionId = validateId(body.editionId, 'editionId');
+    const ownerUserId = validateId(body.ownerUserId, 'ownerUserId');
+    // both throw NotFoundException if the edition / user does not exist
+    this.editionService.findOne(editionId);
+    await this.userClient.ensureUserExists(ownerUserId);
+
+    const newCopy = new Copy();
+    newCopy.copyId = generateId((id) => this.copies.some((c) => c.copyId == id));
+    newCopy.editionId = editionId;
+    // the owner is also the initial holder
+    newCopy.ownerUserId = ownerUserId;
+    newCopy.holderUserId = ownerUserId;
+    this.copies.push(newCopy);
+
+    return { copyId: newCopy.copyId };
   }
 
   findAll() {
-    return `This action returns all copy`;
+    return this.copies;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} copy`;
+  getCopy(copyId: number): Copy {
+    const copy = this.copies.find((c) => c.copyId == copyId);
+
+    if (!copy) {
+      throw new NotFoundException(`Copy ${copyId} not found`);
+    }
+
+    return copy;
   }
 
-  update(id: number, updateCopyDto: UpdateCopyDto) {
-    return `This action updates a #${id} copy`;
+  // Used by Service II (ownership transfers).
+  async changeOwner(copyId: number, newOwnerUserId: number): Promise<void> {
+    const copy = this.getCopy(copyId);
+    const userId = validateId(newOwnerUserId, 'newOwnerUserId');
+    await this.userClient.ensureUserExists(userId);
+    copy.ownerUserId = userId;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} copy`;
+  // Used by Service II (loans and returns).
+  async changeHolder(copyId: number, newHolderUserId: number): Promise<void> {
+    const copy = this.getCopy(copyId);
+    const userId = validateId(newHolderUserId, 'newHolderUserId');
+    await this.userClient.ensureUserExists(userId);
+    copy.holderUserId = userId;
   }
 }

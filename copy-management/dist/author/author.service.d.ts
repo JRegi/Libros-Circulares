@@ -1,9 +1,11 @@
 import { CreateAuthorDto } from './dto/create-author.dto';
 import { UpdateAuthorDto } from './dto/update-author.dto';
+import { Author } from '../author/entities/author.entity';
 export declare class AuthorService {
-    create(createAuthorDto: CreateAuthorDto): string;
-    findAll(): string;
-    findOne(id: number): string;
-    update(id: number, updateAuthorDto: UpdateAuthorDto): string;
-    remove(id: number): string;
+    authors: Author[];
+    create(createAuthorDto: CreateAuthorDto): void;
+    findAll(): Author[];
+    findOne(id: number): Author;
+    update(id: number, updateAuthorDto: UpdateAuthorDto): void;
+    remove(id: number): void;
 }

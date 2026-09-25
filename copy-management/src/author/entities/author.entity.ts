@@ -1,7 +1,11 @@
 export class Author {
-  id: number;
+  authorId: number;
+
   name: string;
+
   lastName: string;
+
   nationality: string;
-  residency: string;
+
+  countryOfResidence: string;
 }

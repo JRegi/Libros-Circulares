@@ -1,9 +1,9 @@
-import { Book } from '../../book/entities/book.entity';
-import { Publisher } from '../../publisher/entities/publisher.entity';
-
 export class Edition {
-  id: number;
+  editionId: number;
+
+  workId: number;
+
+  publisher: string;
+
   year: number;
-  book: Book;
-  publisher: Publisher;
 }

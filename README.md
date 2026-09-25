@@ -1,3 +1,3 @@
 # Libros-Circulares
 
-Repositorio multiproyecto dedicado al trabajo práctico "Libros Circulares" de Desarrollo de Software I, Camara Alemana.
+Multi-project repository for the "Libros Circulares" assignment of Desarrollo de Software I, Camara Alemana.

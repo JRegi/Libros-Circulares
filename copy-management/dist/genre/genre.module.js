@@ -17,6 +17,7 @@ exports.GenreModule = GenreModule = __decorate([
     (0, common_1.Module)({
         controllers: [genre_controller_1.GenreController],
         providers: [genre_service_1.GenreService],
+        exports: [genre_service_1.GenreService],
     })
 ], GenreModule);
 //# sourceMappingURL=genre.module.js.map

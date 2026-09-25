@@ -1,7 +1,6 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, ParseIntPipe } from '@nestjs/common';
 import { EditionService } from './edition.service';
 import { CreateEditionDto } from './dto/create-edition.dto';
-import { UpdateEditionDto } from './dto/update-edition.dto';
 
 @Controller('edition')
 export class EditionController {
@@ -18,17 +17,7 @@ export class EditionController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.editionService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateEditionDto: UpdateEditionDto) {
-    return this.editionService.update(+id, updateEditionDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.editionService.remove(+id);
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.editionService.findOne(id);
   }
 }

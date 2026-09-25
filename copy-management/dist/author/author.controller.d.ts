@@ -4,9 +4,9 @@ import { UpdateAuthorDto } from './dto/update-author.dto';
 export declare class AuthorController {
     private readonly authorService;
     constructor(authorService: AuthorService);
-    create(createAuthorDto: CreateAuthorDto): string;
-    findAll(): string;
-    findOne(id: string): string;
-    update(id: string, updateAuthorDto: UpdateAuthorDto): string;
-    remove(id: string): string;
+    create(createAuthorDto: CreateAuthorDto): void;
+    findAll(): import("./entities/author.entity").Author[];
+    findOne(id: string): import("./entities/author.entity").Author;
+    update(id: string, updateAuthorDto: UpdateAuthorDto): void;
+    remove(id: string): void;
 }

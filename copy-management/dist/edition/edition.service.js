@@ -9,9 +9,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.EditionService = void 0;
 const common_1 = require("@nestjs/common");
 let EditionService = class EditionService {
-    create(createEditionDto) {
-        return 'This action adds a new edition';
-    }
+    create(createEditionDto) { }
     findAll() {
         return `This action returns all edition`;
     }

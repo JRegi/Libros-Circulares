@@ -8,21 +8,34 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthorService = void 0;
 const common_1 = require("@nestjs/common");
+const author_entity_1 = require("../author/entities/author.entity");
 let AuthorService = class AuthorService {
+    authors = [];
     create(createAuthorDto) {
-        return 'This action adds a new author';
+        const newAuthor = new author_entity_1.Author();
+        newAuthor.name = createAuthorDto.name;
+        newAuthor.id = Math.random();
+        this.authors.push(newAuthor);
     }
     findAll() {
-        return `This action returns all author`;
+        return this.authors;
     }
     findOne(id) {
-        return `This action returns a #${id} author`;
+        const author = this.authors.find((a) => a.id == id);
+        if (!author) {
+            throw new common_1.NotFoundException();
+        }
+        return author;
     }
     update(id, updateAuthorDto) {
-        return `This action updates a #${id} author`;
+        const author = this.authors.find((a) => a.id == id);
+        if (!author) {
+            throw new common_1.NotFoundException();
+        }
+        author.name = updateAuthorDto.name;
     }
     remove(id) {
-        return `This action removes a #${id} author`;
+        this.authors = this.authors.filter((a) => a.id != id);
     }
 };
 exports.AuthorService = AuthorService;

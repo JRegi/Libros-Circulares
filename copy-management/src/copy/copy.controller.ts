@@ -1,7 +1,17 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  ParseIntPipe,
+} from '@nestjs/common';
 import { CopyService } from './copy.service';
 import { CreateCopyDto } from './dto/create-copy.dto';
-import { UpdateCopyDto } from './dto/update-copy.dto';
+import { ChangeOwnerDto } from './dto/change-owner.dto';
+import { ChangeHolderDto } from './dto/change-holder.dto';
+import { rejectUnknownFields, requireBody } from '../common/validation';
 
 @Controller('copy')
 export class CopyController {
@@ -18,17 +28,27 @@ export class CopyController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.copyService.findOne(+id);
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.copyService.getCopy(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCopyDto: UpdateCopyDto) {
-    return this.copyService.update(+id, updateCopyDto);
+  @Patch(':id/owner')
+  changeOwner(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() changeOwnerDto: ChangeOwnerDto,
+  ) {
+    const body = requireBody(changeOwnerDto);
+    rejectUnknownFields(body, ['newOwnerUserId']);
+    return this.copyService.changeOwner(id, changeOwnerDto.newOwnerUserId);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.copyService.remove(+id);
+  @Patch(':id/holder')
+  changeHolder(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() changeHolderDto: ChangeHolderDto,
+  ) {
+    const body = requireBody(changeHolderDto);
+    rejectUnknownFields(body, ['newHolderUserId']);
+    return this.copyService.changeHolder(id, changeHolderDto.newHolderUserId);
   }
 }
